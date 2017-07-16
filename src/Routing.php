@@ -5,8 +5,11 @@ class Routing
 {
 
     static public function start(){
+        
+        $cuttedUri = substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], "index.php/") + 9);
 
-        $parsedRequest = explode('/' ,$_SERVER['REQUEST_URI']);
+        $parsedRequest = explode('/' , $cuttedUri);
+
         $className = ucfirst($parsedRequest['1']);
 
         self::loadClass($className);

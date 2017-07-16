@@ -42,11 +42,17 @@ class Products extends General
 
         $result = $this->getConnection()->query('SELECT * FROM products');
 
-        while ($row = mysqli_fetch_row($result)) {
-            $data['products'][] = $row;
+        if ($result->num_rows > 0) {
+            while ($row = mysqli_fetch_row($result)) {
+                $data['products'][] = $row;
+            }
+
+            $this->render('Products/views/index.php',  $data);            
+        }
+        else {
+            echo 'No products in database.<br>';
         }
 
-        $this->render('Products/views/index.php',  $data);
     }
 
     private function addProductValidation()
